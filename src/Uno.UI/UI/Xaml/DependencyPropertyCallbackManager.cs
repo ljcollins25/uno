@@ -21,21 +21,17 @@ namespace Windows.UI.Xaml
 
         public DependencyPropertyCallbackManager()
         {
-            // Suppress the finalizer for this object, re-register when the shadow cache is created.
-            GC.SuppressFinalize(this);
         }
 
-        ~DependencyPropertyCallbackManager()
-        {
-            ReturnShadowToPool();
-        }
+		internal void Dispose()
+			=> ReturnShadowToPool();
 
-        /// <summary>
-        /// Registers a callback to be called by <see cref="RaisePropertyChanged(DependencyObject, DependencyPropertyChangedEventArgs)"/>
-        /// </summary>
-        /// <param name="callback">A property changed callback</param>
-        /// <returns>A disposable to remove the callback from the manager</returns>
-        public IDisposable RegisterCallback(PropertyChangedCallback callback)
+		/// <summary>
+		/// Registers a callback to be called by <see cref="RaisePropertyChanged(DependencyObject, DependencyPropertyChangedEventArgs)"/>
+		/// </summary>
+		/// <param name="callback">A property changed callback</param>
+		/// <returns>A disposable to remove the callback from the manager</returns>
+		public IDisposable RegisterCallback(PropertyChangedCallback callback)
         {
             // When a new callback is added, clear the cache if it has been created.
             ReturnShadowToPool();

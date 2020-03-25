@@ -47,6 +47,14 @@ namespace Windows.UI.Xaml
 			TemplatedParentPropertyDetails = GetPropertyDetails(templatedParentProperty);
 		}
 
+		internal void Dispose()
+		{
+			for (var i = 0; i < _entries.Length; i++)
+			{
+				_entries[i].Details?.Dispose();
+			}
+		}
+
 		/// <summary>
 		/// Gets the <see cref="DependencyPropertyDetails"/> for a specific <see cref="DependencyProperty"/>
 		/// </summary>

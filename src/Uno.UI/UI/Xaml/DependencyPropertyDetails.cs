@@ -29,8 +29,9 @@ namespace Windows.UI.Xaml
 			_stack = _pool.Rent(MaxIndex + 1);
 		}
 
-		~DependencyPropertyDetails()
+		internal void Dispose()
 		{
+			CallbackManager.Dispose();
 			_pool.Return(_stack, clearArray: true);
 		}
 
