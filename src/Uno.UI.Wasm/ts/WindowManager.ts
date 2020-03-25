@@ -244,6 +244,7 @@ namespace Uno.UI {
 				contentDefinition.isSvg
 					? document.createElementNS("http://www.w3.org/2000/svg", contentDefinition.tagName)
 					: document.createElement(contentDefinition.tagName);
+
 			element.id = contentDefinition.id;
 
 			const uiElementRegistration = this.uiElementRegistrations[this.handleToString(contentDefinition.uiElementRegistrationId)];
@@ -263,9 +264,12 @@ namespace Uno.UI {
 			}
 
 			if (contentDefinition) {
+				let classes = element.classList.value; 
 				for (const className of uiElementRegistration.classNames) {
-					element.classList.add(`uno-${className}`);
+					classes += " uno-" + className;
 				}
+
+				element.classList.value = classes;
 			}
 
 			// Add the html element to list of elements
