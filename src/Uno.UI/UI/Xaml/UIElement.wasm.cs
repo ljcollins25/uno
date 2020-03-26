@@ -98,7 +98,10 @@ namespace Windows.UI.Xaml
 			InitializePointers();
 			UpdateHitTest();
 
-			FocusManager.Track(this);
+			if (this is FrameworkElement)
+			{
+				FocusManager.Track(this);
+			}
 		}
 
 		~UIElement()
